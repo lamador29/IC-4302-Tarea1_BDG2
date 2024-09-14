@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "aerospike": "^5.12.1",
+    "cassandra-driver": "^4.7.2",
+    "mongoose": "^8.6.2",
+    "neo4j-driver": "^5.24.1"
+  }
+}
