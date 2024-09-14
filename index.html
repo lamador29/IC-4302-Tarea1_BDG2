@@ -30,7 +30,9 @@
       margin-bottom: 30px;
     }
     .btn-colorfont, 
-    .btn-colorfont:hover{
+    .btn-colorfont:hover,
+    .btn-colorfont:active:focus,
+    .btn-colorfont:focus{
       color: #fff
     }
     .btn-custom {
@@ -47,18 +49,6 @@
     .btn-search {
       background-color: #d91099;
     }
-    .btn-login:focus {
-      background-color: #3281da; 
-      border: 2px solid #154378; 
-    }
-    .btn-register:focus {
-      background-color: #29b94a; 
-      border: 2px solid #154378; 
-    }
-    .btn-search:focus {
-      background-color: #e633ad; 
-      border: 2px solid #154378; 
-    }    
     .btn-login:hover {
       background-color: #3281da; 
     }
@@ -68,6 +58,22 @@
     .btn-search:hover {
       background-color: #e633ad;
     }
+    .btn-login:active:focus,
+    .btn-login:focus {
+      background-color: #3281da; 
+      border-color: #fde931; 
+    }
+    .btn-register:active:focus,
+    .btn-register:focus {
+      background-color: #29b94a; 
+      border-color: #fde931; 
+    }
+    .btn-search:active:focus,
+    .btn-search:focus {
+      background-color: #e633ad; 
+      border-color: #fde931; 
+    }    
+
   </style>
 </head>
 <body>
