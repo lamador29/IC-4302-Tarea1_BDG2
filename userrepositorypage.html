@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>User Repository Page</title>
+
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="estilosinterfaz/userrepositorypage.css" rel="stylesheet">
+
+</head>
+<body>
+
+  <button class="btn btn-back" onclick="window.location.href='usermainpage.html'">Go back</button>
+
+  <div class="container mt-4">
+    <h2 class="fw-bold">Repository Name</h2>
+
+    <div class="row">
+      <div class="col-md-8 position-relative">
+        <h4>Directories</h4>
+        <button class="btn btn-add mb-2">Add New File/Folder</button>
+        <div class="directories-box mb-4">
+
+          <p><strong>Root</strong></p>
+          <p>Files</p>
+        </div>
+        <div class="rate-box mb-4">
+          <span>Rate:</span>
+          <button class="btn btn-outline-success mx-2"><i class="fas fa-thumbs-up"></i></button>
+          <button class="btn btn-outline-danger"><i class="fas fa-thumbs-down"></i></button>
+        </div>
+
+        <div class="button-group position-absolute" style="bottom: 15px; right: 15px;">
+          <button class="btn btn-secondary me-2">Make Branch</button>
+          <button class="btn btn-secondary me-2">Download</button>
+          <button class="btn btn-secondary">Subscribe</button>
+        </div>
+      </div>
+
+      <div class="col-md-4 d-flex flex-column align-items-start" style="margin-top: 90px;">
+        <div class="edit-section mb-4">
+          <h4>Edit</h4>
+          <div class="form-switch mb-3">
+            <input class="form-check-input" type="checkbox" id="publicSwitch" checked>
+            <label class="form-check-label" for="publicSwitch">Public</label>
+          </div>
+          <button class="btn btn-secondary mb-2">Versioning</button>
+          <button class="btn btn-secondary mb-2">Commit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección para agregar un comentario -->
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Make a Comment</h4>
+        <form>
+          <div class="form-group">
+            <textarea class="form-control" rows="3" placeholder="Write your comment"></textarea>
+          </div>
+          <button type="submit" class="btn btn-create mt-2">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Sección de comentarios -->
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <h4>Comment Section</h4>
+        <div class="comment-box">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
