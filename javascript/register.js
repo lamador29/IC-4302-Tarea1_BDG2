@@ -1,15 +1,18 @@
 import express from 'express';
 import { urlencoded } from 'body-parser';
-import { client as _client, Key } from 'aerospike';
+import Aerospike, { Key } from 'aerospike';
+import bcrypt from 'bcrypt';
 
 const app = express();
+const saltRounds = 10;
 
 app.use(urlencoded({ extended: true }));
 
 const config = {
   hosts: '127.0.0.1:3000' 
 };
-const client = _client(config);
+const client = Aerospike.client(config);
+
 client.connect((error) => {
   if (error) {
     console.error('Error al conectar a Aerospike:', error);
@@ -20,6 +23,11 @@ client.connect((error) => {
 
 app.post('/register', (req, res) => {
   const { email, password, username } = req.body; 
+
+  bcrypt.hash(password, saltRounds, (err, hash) => {
+    if (err) {
+      return res.status(500).send('Error al encriptar la contraseña');
+    }  
 
   const key = new Key('test', 'users', email); 
 
@@ -39,7 +47,6 @@ app.post('/register', (req, res) => {
   });
 });
 
-// Servidor corriendo en el puerto 3000
 app.listen(3000, () => {
   console.log('Servidor escuchando en el puerto 3000');
 });
