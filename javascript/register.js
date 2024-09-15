@@ -1,22 +1,20 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const Aerospike = require('aerospike');
+import express from 'express';
+import { urlencoded } from 'body-parser';
+import { client as _client, Key } from 'aerospike';
 
 const app = express();
 
-// Configurar body-parser para manejar formularios POST
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(urlencoded({ extended: true }));
 
-// Ruta para servir el formulario HTML de registro
 app.get('/register', (req, res) => {
-  res.sendFile(__dirname + '/index.html'); // Asegúrate de que el archivo HTML esté en la misma carpeta
+  res.sendFile(__dirname + '/index.html'); 
 });
 
 // Configurar Aerospike
 const config = {
   hosts: '127.0.0.1:3000' // Cambia la IP si es necesario
 };
-const client = Aerospike.client(config);
+const client = _client(config);
 client.connect((error) => {
   if (error) {
     console.error('Error al conectar a Aerospike:', error);
@@ -28,7 +26,7 @@ client.connect((error) => {
 app.post('/register', (req, res) => {
   const { email, password, nombre } = req.body; // Los nombres de los campos deben coincidir con el HTML
 
-  const key = new Aerospike.Key('test', 'users', email); // Usar el email como clave
+  const key = new Key('test', 'users', email); // Usar el email como clave
 
   const record = {
     nombre: nombre,
