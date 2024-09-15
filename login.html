@@ -22,8 +22,8 @@
     }
     .container {
       max-width: 400px;
-      margin: 0 auto;
-      background-color: #fff;
+      margin: 90px auto 50px auto;
+      background-color: #ffffff;
       padding: 20px;
       border-radius: 8px;
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -43,18 +43,28 @@
       font-weight: bold;
       margin-top: 10px;
     }
+    .btn-colorfont, 
+    .btn-colorfont:hover,
+    .btn-colorfont:active:focus,
+    .btn-colorfont:focus{
+      color: white
+    }
     .btn-login {
       background-color: #28a745;
       color: white;
     }
-    .btn-login:hover {
+    .btn-login:hover,     
+    .btn-login:active:focus,
+    .btn-login:focus {
       background-color: #29b94a;
     }
     .btn-back {
       background-color: #2263ad;
       color: white;
     }
-    .btn-back:hover {
+    .btn-back:hover,    
+    .btn-back:active:focus,
+    .btn-back:focus {
       background-color: #3281da;
     }
     .go-back {
@@ -69,7 +79,6 @@
     }
     .login-link {
       text-align: center;
-      margin-top: 20px;
     }
     .login-link a {
       color: #2263ad;
@@ -95,14 +104,14 @@
         <input type="password" class="form-control" id="password" placeholder="Enter your password">
       </div>
       <div class="form-group-btn">
-        <button type="submit" class="btn btn-custom btn-login">Log In</button>
+        <button type="submit" class="btn btn-custom btn-login btn-colorfont">Log In</button>
       </div>
     </form>
   </div>
   <div class="login-link">
-    <p>Don't have an account? <a href="register.html">Register here</a></p>
+    <p class="mt-1">Don't have an account? <a href="register.html">Register here</a></p>
   </div>
-  <button class="btn btn-custom btn-back go-back" onclick="window.location.href='index.html'">Go back</button>
+  <button class="btn btn-custom btn-back go-back btn-colorfont" onclick="window.location.href='index.html'">Go back</button>
 
   <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
