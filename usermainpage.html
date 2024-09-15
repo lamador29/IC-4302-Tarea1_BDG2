@@ -9,5 +9,32 @@
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="estilosinterfaz/usermainpage.css" rel="stylesheet">
 
+</head>
+<body>
 
+  <button class="btn btn-logout" onclick="window.location.href='index.html'">Log out</button>
+
+  <div class="container">
+    <h2 class="fw-bold">Welcome back!</h2>
+    <div class="search-bar mb-4">
+      <input type="text" class="form-control" placeholder="Search for a repository">
+      <button class="btn btn-search">Search</button>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3 class="fw-bold">My repositories:</h3>
+      <button class="btn btn-new" onclick="window.location.href='repositorycreation.html'">New</button>
+    </div>
+    <div class="repositories-box mb-4">
+      <p>No repositories found.</p>
+    </div>
+
+    <h3 class="fw-bold">Recommended repositories:</h3>
+    <div class="repositories-box">
+      <p>No recommended repositories available.</p>
+    </div>
+  </div>
+
+  <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

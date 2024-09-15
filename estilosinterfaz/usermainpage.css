@@ -1,0 +1,68 @@
+body {
+  background-color: #bdcafc;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+.container {
+  margin-top: 50px;
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.btn-logout {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  margin: 0 auto;
+  width: 10%;
+  padding: 10px;
+  background-color: #8122ad;
+  color: white;
+}
+.btn-logout:hover, 
+.btn-logout:active:focus,
+.btn-logout:focus {
+  background-color: #9439be;
+  color: white;
+}
+
+.btn-search {
+  background-color: #d91099;
+  color: white;
+  margin-left: 10px;
+  padding: 6px 42px;
+}
+.btn-search:hover,     
+.btn-search:active:focus,
+.btn-search:focus {
+  background-color: #e633ad;
+  color: white;
+}
+
+.btn-new {
+  background-color: #28a745;
+  color: white;
+  padding: 5px 51px;
+}
+.btn-new:hover,     
+.btn-new:active:focus,
+.btn-new:focus {
+  background-color: #29b94a;
+  color: white;
+}
+
+.repositories-box {
+  background-color: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 15px;
+  height: 200px; 
+  overflow-y: auto;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2, h3 {
+  font-weight: bold;
+}
