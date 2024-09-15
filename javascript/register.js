@@ -6,13 +6,8 @@ const app = express();
 
 app.use(urlencoded({ extended: true }));
 
-app.get('/register', (req, res) => {
-  res.sendFile(__dirname + '/index.html'); 
-});
-
-// Configurar Aerospike
 const config = {
-  hosts: '127.0.0.1:3000' // Cambia la IP si es necesario
+  hosts: '127.0.0.1:3000' 
 };
 const client = _client(config);
 client.connect((error) => {
@@ -22,14 +17,14 @@ client.connect((error) => {
   }
 });
 
-// Ruta para manejar el formulario POST del registro
-app.post('/register', (req, res) => {
-  const { email, password, nombre } = req.body; // Los nombres de los campos deben coincidir con el HTML
 
-  const key = new Key('test', 'users', email); // Usar el email como clave
+app.post('/register', (req, res) => {
+  const { email, password, username } = req.body; 
+
+  const key = new Key('test', 'users', email); 
 
   const record = {
-    nombre: nombre,
+    username: username,
     password: password
   };
 
