@@ -7,6 +7,7 @@
   <title>User Repository Page</title>
 
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <link href="estilosinterfaz/userrepositorypage.css" rel="stylesheet">
 
 </head>
@@ -18,18 +19,22 @@
     <h2 class="fw-bold">Repository Name</h2>
 
     <div class="row">
-      <div class="col-md-8 position-relative">
+      <div class="col-md-9 position-relative">
         <h4>Directories</h4>
-        <button class="btn btn-add mb-2">Add New File/Folder</button>
-        <div class="directories-box mb-4">
+        <div class="directories-box mb-4 position-relative">
+          <button class="btn btn-add position-absolute" style="top: -60px; right: 0px;">Add New File/Folder</button>
 
           <p><strong>Root</strong></p>
           <p>Files</p>
         </div>
         <div class="rate-box mb-4">
           <span>Rate:</span>
-          <button class="btn btn-outline-success mx-2"><i class="fas fa-thumbs-up"></i></button>
-          <button class="btn btn-outline-danger"><i class="fas fa-thumbs-down"></i></button>
+          <button class="btn btn-outline-success mx-2">
+            <i class="fas fa-thumbs-up"></i>
+          </button>
+          <button class="btn btn-outline-danger">
+            <i class="fas fa-thumbs-down"></i>
+          </button>
         </div>
 
         <div class="button-group position-absolute" style="bottom: 15px; right: 15px;">
@@ -39,8 +44,8 @@
         </div>
       </div>
 
-      <div class="col-md-4 d-flex flex-column align-items-start" style="margin-top: 90px;">
-        <div class="edit-section mb-4">
+      <div class="col-md-3 d-flex flex-column align-items-start" style="margin-top: 38px;">
+        <div class="edit-section mb-1">
           <h4>Edit</h4>
           <div class="form-switch mb-3">
             <input class="form-check-input" type="checkbox" id="publicSwitch" checked>
@@ -52,7 +57,6 @@
       </div>
     </div>
 
-    <!-- Sección para agregar un comentario -->
     <div class="row">
       <div class="col-md-12">
         <h4>Make a Comment</h4>
@@ -65,7 +69,6 @@
       </div>
     </div>
 
-    <!-- Sección de comentarios -->
     <div class="row mt-4">
       <div class="col-md-12">
         <h4>Comment Section</h4>
@@ -74,6 +77,18 @@
       </div>
     </div>
   </div>
+  
+  
+
+  <script>
+    // esta parte es para saber si está loggeado o no para mostrar la sección de editar
+    const isLoggedIn = true; 
+    const hasAccess = false; 
+
+    if (!isLoggedIn || !hasAccess) {
+      document.getElementById('editSection').style.display = 'none';
+    }
+  </script>
 
   <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
