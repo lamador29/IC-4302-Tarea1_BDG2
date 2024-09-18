@@ -1,8 +1,10 @@
-import express from 'express';
-import { urlencoded } from 'body-parser';
-import Aerospike, { Key } from 'aerospike';
-import bcrypt from 'bcrypt';
-import crypto from 'crypto';
+console.log("El archivo se está ejecutando");
+
+const express = require('express');
+const { urlencoded } = require('body-parser');
+const Aerospike = require('aerospike');
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
 const app = express();
 const saltRounds = 10;
@@ -51,7 +53,7 @@ app.post('/register', (req, res) => {
     const encryptedEmail = encrypt(email);
     const encryptedUsername = encrypt(username);
 
-    const key = new Key('test', 'users', encryptedEmail);
+    const key = new Aerospike.Key('test', 'users', encryptedEmail);
     const record = {
       username: encryptedUsername,
       password: hash
@@ -69,6 +71,10 @@ app.post('/register', (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Servidor escuchando en el puerto 3000');
-});
+try {
+  app.listen(3003, () => {
+    console.log('Servidor escuchando en el puerto 3003');
+  });
+} catch (error) {
+  console.error('Error al iniciar el servidor:', error);
+}
