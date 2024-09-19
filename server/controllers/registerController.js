@@ -1,7 +1,7 @@
-const Aerospike = require('aerospike'); 
+const Aerospike = require('aerospike');
 const bcrypt = require('bcrypt');
 const client = require('../db/aerospike');
-const { encrypt } = require('../utils/cryptoUtils');
+const { encrypt, hashUsername } = require('../utils/cryptoUtils');
 const saltRounds = 10;
 
 exports.registerUser = (req, res) => {
@@ -14,10 +14,12 @@ exports.registerUser = (req, res) => {
     }
 
     const encryptedEmail = encrypt(email);
-    const encryptedUsername = encrypt(username);
 
-    const key = new Aerospike.Key('test', 'users', encryptedEmail);
-    const record = { username: encryptedUsername, password: hash };
+    const hashedUsername = hashUsername(username);
+
+    const key = new Aerospike.Key('test', 'users', hashedUsername);
+    
+    const record = { username: hashedUsername, password: hash, email: encryptedEmail };
 
     client.put(key, record, (error) => {
       if (error) {

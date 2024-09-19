@@ -21,4 +21,9 @@ function decrypt(text) {
   return decrypted;
 }
 
-module.exports = { encrypt, decrypt };
+function hashUsername(username) {
+  return crypto.createHash('sha256').update(username).digest('hex');
+}
+
+module.exports = { encrypt, decrypt, hashUsername };
+

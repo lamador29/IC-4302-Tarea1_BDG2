@@ -1,7 +1,7 @@
 const Aerospike = require('aerospike');
 const bcrypt = require('bcrypt');
 const client = require('../db/aerospike');
-const { encrypt } = require('../utils/cryptoUtils');
+const { hashUsername } = require('../utils/cryptoUtils');
 
 exports.loginUser = (req, res) => {
   const { username, password } = req.body;
@@ -10,11 +10,11 @@ exports.loginUser = (req, res) => {
     return res.status(400).send('El nombre de usuario y la contraseña son requeridos');
   }
 
-  const encryptedUsername = encrypt(username);
+  const hashedUsername = hashUsername(username);
 
-  console.log('Encrypted username during login:', encryptedUsername);
-  
-  const key = new Aerospike.Key('test', 'users', encryptedUsername);
+  console.log('Hashed username during login:', hashedUsername);
+
+  const key = new Aerospike.Key('test', 'users', hashedUsername);
 
   client.get(key, (error, record) => {
     if (error) {
