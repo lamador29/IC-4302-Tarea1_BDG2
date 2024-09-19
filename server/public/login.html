@@ -15,18 +15,19 @@
     <h1>Login</h1>
 
     <button class="btn btn-custom btn-back go-back btn-colorfont" onclick="window.location.href='index.html'">Go back</button>
-    <form>
+    <form id="loginForm">
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" placeholder="Enter your username">
+        <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Enter your password">
+        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
       </div>
       <div class="form-group-btn">
         <button type="submit" class="btn btn-custom btn-login btn-colorfont">Log In</button>
       </div>
+      <div id="message"></div>
     </form>
   </div>
   <div class="login-link">
@@ -35,5 +36,40 @@
 
 
   <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const form = document.getElementById('loginForm');
+    const messageDiv = document.getElementById('message');
+
+    form.addEventListener('submit', async function(event) {
+      event.preventDefault(); 
+
+      const formData = new FormData(form);
+      const data = {
+        username: formData.get('username'),
+        password: formData.get('password')
+      };
+
+      try {
+        const response = await fetch('/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data) 
+        });
+
+        const result = await response.text();
+
+        if (response.ok) {
+          window.location.href = 'usermainpage.html';
+        } else {
+          messageDiv.innerHTML = `<p style="color: red;">Error: ${result}</p>`;
+        }
+      } catch (error) {
+        console.error('Error en el envío del formulario:', error);
+        messageDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+      }
+    });
+  </script>
 </body>
 </html>

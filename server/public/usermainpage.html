@@ -15,7 +15,7 @@
   <button class="btn btn-logout" onclick="window.location.href='index.html'">Log out</button>
 
   <div class="container">
-    <h2 class="fw-bold">Welcome back!</h2>
+    <h2 class="fw-bold">Welcome back, <span id="usernameDisplay"></span>!</h2>
     <div class="search-bar mb-4">
       <input type="text" class="form-control" placeholder="Search for a repository">
       <button class="btn btn-search">Search</button>
@@ -25,7 +25,7 @@
       <h3 class="fw-bold">My repositories:</h3>
       <button class="btn btn-new" onclick="window.location.href='repositorycreation.html'">New</button>
     </div>
-    <div class="repositories-box mb-4">
+    <div id="repositoriesBox" class="repositories-box mb-4">
       <p>No repositories found.</p>
     </div>
 
@@ -36,5 +36,42 @@
   </div>
 
   <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const username = 'nombreDeUsuario'; // Cambia esto con la lógica adecuada para obtener el username
+
+    document.getElementById('usernameDisplay').innerText = username;
+
+    async function fetchUserRepositories() {
+      try {
+        const response = await fetch(`/repos/user-repos/${username}`);
+        const repos = await response.json();
+
+        const repositoriesBox = document.getElementById('repositoriesBox');
+
+        if (response.ok && repos.length > 0) {
+          repositoriesBox.innerHTML = '';
+
+          repos.forEach(repo => {
+            const repoDiv = document.createElement('div');
+            repoDiv.classList.add('repository-item');
+            repoDiv.innerHTML = `
+              <h4>${repo.Title}</h4>
+              <p>Public: ${repo.IsPublic ? 'Yes' : 'No'}</p>
+              <p>Commits: ${repo.commits.length}</p>
+              <p>Files: ${repo.Files.length}</p>
+            `;
+            repositoriesBox.appendChild(repoDiv);
+          });
+        } else {
+          repositoriesBox.innerHTML = '<p>No repositories found.</p>';
+        }
+      } catch (error) {
+        console.error('Error al obtener los repositorios:', error);
+        document.getElementById('repositoriesBox').innerHTML = '<p>Error al cargar los repositorios.</p>';
+      }
+    }
+
+    fetchUserRepositories();
+  </script>
 </body>
 </html>

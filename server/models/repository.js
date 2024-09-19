@@ -13,12 +13,12 @@ const repoSchema = new Schema({
     },
 
     commits: {
-        type: array,
+        type: [String],
         required : false
     },
 
     Files: {
-        type : array,
+        type : [String],
         required : false
     },
 }, { timestamps: true });

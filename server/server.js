@@ -2,10 +2,12 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const registerRoutes = require('./routes/registerRoutes');
-const connectDB = require('./db/mongoConnect');
-const Repository = require('./models/repository');
+const loginRoutes = require('./routes/loginRoutes');
+//const repoRoutes = require('./routes/repoRoutes');
+//const connectDB = require('./db/mongo');
+//const Repository = require('./models/repository');
 
-connectDB(); 
+//connectDB(); 
 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true })); 
@@ -13,13 +15,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/register', registerRoutes);
+app.use('/login', loginRoutes);
+//app.use('/repos', repoRoutes); 
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'register.html'));
 });
 
 // Ejemplo de una ruta para interactuar con el modelo de MongoDB (repositorios)
-app.post('/create-repository', async (req, res) => {
+/* app.post('/create-repository', async (req, res) => {
   const { Title, IsPublic, commits, Files } = req.body;
 
   try {
@@ -38,7 +42,7 @@ app.post('/create-repository', async (req, res) => {
     console.error('Error al crear el repositorio:', err);
     res.status(500).json({ error: 'Error al crear el repositorio' });
   }
-});
+}); */
 
 const PORT = process.env.PORT || 3003;
 app.listen(PORT, () => {
