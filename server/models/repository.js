@@ -23,5 +23,5 @@ const repoSchema = new Schema({
     },
 }, { timestamps: true });
 
-const repository = mongoose.model('repository', repoSchema);
-module.exports = repository;
+const Repository = mongoose.model('Repository', repoSchema);
+module.exports = Repository;
