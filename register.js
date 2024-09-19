@@ -1,5 +1,3 @@
-console.log("El archivo se está ejecutando");
-
 const express = require('express');
 const { urlencoded } = require('body-parser');
 const Aerospike = require('aerospike');
