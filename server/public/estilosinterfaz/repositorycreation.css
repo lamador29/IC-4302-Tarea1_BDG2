@@ -63,3 +63,11 @@ body {
   color: white;
 }
 
+.form-switch .form-check-input {
+  width: 40px;
+  height: 20px;
+}
+
+.form-switch .form-check-input:checked {
+  background-color: #28a745;
+}

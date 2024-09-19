@@ -74,6 +74,13 @@ body {
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
+.btn-create:hover,
+.btn-create:active:focus,
+.btn-create:focus {
+  background-color: #29b94a;
+  color: white;
+}
+
 .comment-box {
   background-color: #ffffff;
   border: 1px solid #ced4da;
