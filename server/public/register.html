@@ -16,7 +16,7 @@
     <h1>Register</h1>
 
     <button class="btn btn-custom btn-back go-back btn-colorfont" onclick="window.location.href='index.html'">Go back</button>
-    <form action="/register" method="POST">
+    <form id="registerForm">
       <div class="form-group">
         <label for="email">Mail</label>
         <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
@@ -33,11 +33,13 @@
         <button type="submit" class="btn btn-custom btn-register btn-colorfont">Register</button>
       </div>
     </form>
+    <div id="message"></div>
   </div>
   <div class="login-link">
     <p>Already have an account? <a href="login.html">Log in here</a></p>
   </div>
 
   <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="register.js"></script>
 </body>
 </html>
