@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
   <link href="estilosinterfaz/repositorypage.css" rel="stylesheet">
 
 </head>
+
 <body>
 
   <button class="btn btn-back" onclick="window.location.href='usermainpage.html'">Go back</button>
@@ -27,7 +29,7 @@
           <p><strong>Root</strong></p>
           <p>Files</p>
         </div>
-        <div class="rate-box mb-4">
+        <div class="rate-box mb-4" id="rateSection">
           <span>Rate:</span>
           <button class="btn btn-outline-success mx-2">
             <i class="fas fa-thumbs-up"></i>
@@ -38,26 +40,28 @@
         </div>
 
         <div class="button-group position-absolute" style="bottom: 20px; right: 15px;">
-          <button class="btn btn-secondary me-2">Make Branch</button>
-          <button class="btn btn-secondary me-2">Download</button>
-          <button class="btn btn-secondary">Subscribe</button>
+          <button class="btn btn-secondary me-2" id="downloadButton">Download</button>
+          <button class="btn btn-secondary me-2" id="makeBranchButton">Make Branch</button>
+          <button class="btn btn-secondary me-2" id="mergeButton">Merge</button>
+          <button class="btn btn-secondary me-2" id="subscribeButton">Subscribe</button>
         </div>
       </div>
 
       <div class="col-md-3 d-flex flex-column align-items-start" style="margin-top: 38px;">
-        <div class="edit-section mb-1">
+        <div class="edit-section mb-1" id="editSection">
           <h4>Edit</h4>
           <div class="form-switch mb-3">
             <input class="form-check-input" type="checkbox" id="publicSwitch" checked>
             <label class="form-check-label" for="publicSwitch">Public</label>
           </div>
-          <button class="btn btn-secondary mb-2">Versioning</button>
-          <button class="btn btn-secondary mb-2">Commit</button>
+          <button class="btn btn-secondary mb-2">Upload Changes</button>
+          <button class="btn btn-secondary mb-2">Accept Changes</button>
+          <button class="btn btn-secondary mb-2">Version History</button>
         </div>
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" id="makeCommentSection">
       <div class="col-md-12">
         <h4>Make a Comment</h4>
         <form>
@@ -69,25 +73,47 @@
       </div>
     </div>
 
+    <div class="row" id="registerSection" style="display: none;">
+      <div class="col-md-12 text-center mt-4">
+        <p>You can't comment if you don't have an account. Do you want to login or register?</p>
+        <button class="btn btn-create mt-2" onclick="window.location.href='login.html'">Login</button>
+        <button class="btn btn-create mt-2" onclick="window.location.href='register.html'">Register</button>
+      </div>
+    </div>
+
     <div class="row mt-4">
       <div class="col-md-12">
         <h4>Comment Section</h4>
         <div class="comment-box">
+          <!-- Comments will be displayed here -->
         </div>
       </div>
     </div>
   </div>
-  
+
   <script>
     // esta parte es para saber si está loggeado o no, o si tiene permisos de edición para mostrar la sección de editar
     const isLoggedIn = true; 
-    const hasAccess = false; 
+    const hasAccess = false;
 
-    if (!isLoggedIn || !hasAccess) {
+    if (!isLoggedIn) {
       document.getElementById('editSection').style.display = 'none';
+
+      document.getElementById('makeBranchButton').disabled = true;
+      document.getElementById('mergeButton').disabled = true;
+      document.getElementById('subscribeButton').disabled = true;
+
+      document.querySelectorAll('#rateSection button').forEach(button => {
+        button.disabled = true;
+      });
+
+      document.getElementById('makeCommentSection').style.display = 'none';
+
+      document.getElementById('registerSection').style.display = 'block';
+
     }
   </script>
-
   <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
