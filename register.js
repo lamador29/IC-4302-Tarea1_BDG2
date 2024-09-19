@@ -5,10 +5,11 @@ const { urlencoded } = require('body-parser');
 const Aerospike = require('aerospike');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
+const path = require('path');
 
 const app = express();
 const saltRounds = 10;
-const encryptionKey = 'clave-de-cifrado-segura-1234567890abcdef';
+const encryptionKey = crypto.createHash('sha256').update('clave-de-cifrado-segura').digest();
 const algorithm = 'aes-256-ctr';
 
 app.use(urlencoded({ extended: true }));
@@ -28,21 +29,31 @@ client.connect((error) => {
   }
 });
 
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'register.html')); 
+});
+
 function encrypt(text) {
-  const cipher = crypto.createCipheriv(algorithm, Buffer.from(encryptionKey), Buffer.alloc(16, 0));  // IV de 16 bytes
+  const iv = crypto.randomBytes(16); 
+  const cipher = crypto.createCipheriv(algorithm, encryptionKey, iv); 
   let encrypted = cipher.update(text, 'utf8', 'hex');
   encrypted += cipher.final('hex');
-  return encrypted;
+  return iv.toString('hex') + ':' + encrypted; 
 }
 
 function decrypt(text) {
-  const decipher = crypto.createDecipheriv(algorithm, Buffer.from(encryptionKey), Buffer.alloc(16, 0));  // IV de 16 bytes
-  let decrypted = decipher.update(text, 'hex', 'utf8');
+  const [ivHex, encryptedText] = text.split(':'); 
+  const iv = Buffer.from(ivHex, 'hex');
+  const decipher = crypto.createDecipheriv(algorithm, encryptionKey, iv); 
+  let decrypted = decipher.update(encryptedText, 'hex', 'utf8');
   decrypted += decipher.final('utf8');
   return decrypted;
 }
 
 app.post('/register', (req, res) => {
+  console.log('Datos recibidos:', req.body); 
   const { email, password, username } = req.body;
 
   bcrypt.hash(password, saltRounds, (err, hash) => {
