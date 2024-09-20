@@ -1,3 +1,4 @@
+/*
 const Aerospike = require('aerospike');
 
 const config = {
@@ -16,3 +17,4 @@ client.connect((error) => {
 });
 
 module.exports = client;
+*/

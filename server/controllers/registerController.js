@@ -1,6 +1,6 @@
-const Aerospike = require('aerospike'); 
+//const Aerospike = require('aerospike'); 
 const bcrypt = require('bcrypt');
-const client = require('../db/aerospike');
+//const client = require('../db/aerospike');
 const { encrypt } = require('../utils/cryptoUtils');
 const saltRounds = 10;
 

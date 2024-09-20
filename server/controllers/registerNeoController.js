@@ -5,7 +5,7 @@ const neo4jClient = require('../db/neo4j');
 const session = neo4jClient.session();
 
 
-exports.registerUser = (req, res) => {
+exports.registerUser = async (req, res) => {
   console.log('Datos recibidos:', req.body); 
   const { username } = req.body;
 
