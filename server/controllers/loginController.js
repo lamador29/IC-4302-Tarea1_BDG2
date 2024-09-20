@@ -1,9 +1,7 @@
-const Neo4j = require('neo4j-driver');
-const neo4jClient = require('../db/neo4j');
-
-
-const session = neo4jClient.session();
-
+//const Aerospike = require('aerospike');
+const bcrypt = require('bcrypt');
+//const client = require('../db/aerospike');
+const { encrypt } = require('../utils/cryptoUtils');
 
 exports.loginUser = (req, res) => {
   const { username, password } = req.body;
@@ -18,7 +16,7 @@ exports.loginUser = (req, res) => {
   
   const key = new Aerospike.Key('test', 'users', encryptedUsername);
 
-  neo4jClient.get(key, (error, record) => {
+  client.get(key, (error, record) => {
     if (error) {
       console.error('Error al buscar en Aerospike:', error);
       return res.status(404).send('Usuario no encontrado');

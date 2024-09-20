@@ -1,7 +1,8 @@
-//const Aerospike = require('aerospike');
-const bcrypt = require('bcrypt');
-//const client = require('../db/aerospike');
-const { encrypt } = require('../utils/cryptoUtils');
+const Neo4j = require('neo4j-driver');
+const neo4jClient = require('../db/neo4j');
+
+
+const session = neo4jClient.session();
 
 exports.loginUser = (req, res) => {
   const { username, password } = req.body;
