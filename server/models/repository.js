@@ -1,27 +1,25 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const repoSchema = new Schema({
-    Title : {
-        type: String,
-        required : true
-    },
+const filesSchema = new Schema({
+    files : [{
+        title: String,
+        date: { type: Date, default: Date.now },
+        path: String
+    }]
+})
+const files = mongoose.model('files', filesSchema);
 
-    IsPublic : {
-        type: Boolean,
-        required : true
-    },
-
-    commits: {
-        type: [String],
-        required : false
-    },
-
-    Files: {
-        type : [String],
-        required : false
-    },
+const repositorySchema = new Schema({
+    title: String,
+    isPublic: boolean,
+    rating: Number,
+    users: [String],
+    tags: [String],
+    folder: filesSchema,
+    comits: [filesSchema]
 }, { timestamps: true });
 
-const Repository = mongoose.model('Repository', repoSchema);
+const Repository = mongoose.model('repository', repositorySchema);
 module.exports = Repository;
+module.exports = files;

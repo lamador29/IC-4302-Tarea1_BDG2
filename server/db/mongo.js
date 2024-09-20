@@ -1,14 +1,7 @@
 const mongoose = require('mongoose');
 
-const dbURI = "mongodb+srv://netninja:test1234@net-ninja-tuts-del96.mongodb.net/node-tuts";
-
-const connectDB = async () => {
-  try {
-    await mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
-    console.log('Conectado a MongoDB exitosamente');
-  } catch (err) {
-    console.error('Error al conectar a MongoDB:', err);
-  }
-};
-
-module.exports = connectDB;
+//Conexion a MongoDB ATLAS
+const uri = "mongodb+srv://lector:1234@tarea1.acsgw.mongodb.net/RPDB?retryWrites=true&w=majority&appName=Tarea1";
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(result => app.listen(3000))
+  .catch(err => console.log(err));
