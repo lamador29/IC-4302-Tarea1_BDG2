@@ -1,18 +1,10 @@
 const express = require('express');
-const connectDB = require('./db/mongo');
 const path = require('path');
 const app = express();
 const registerRoutes = require('./routes/registerRoutes');
 const loginRoutes = require('./routes/loginRoutes');
-<<<<<<< Updated upstream
-=======
-const commentRoutes = require('./routes/commentRoutes');
-//const repoRoutes = require('./routes/repoRoutes');
 
-//const Repository = require('./models/repository');
->>>>>>> Stashed changes
-
-//Funciones para repositorio actuales:
+//Funciones para repositorio:
 const {createRepository, search, RepositoriesOfAnUser, addFileToRepositoryFolder, 
        pushFolderToCommits, makeComment, getCommentsFromRepository} = require('./controllers/RepositoryController.cjs');
 
@@ -61,4 +53,3 @@ const PORT = process.env.PORT || 3003;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
-
