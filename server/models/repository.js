@@ -17,7 +17,8 @@ const repositorySchema = new Schema({
     users: [String],
     tags: [String],
     folder: filesSchema,
-    comits: [filesSchema]
+    comits: [filesSchema],
+    comments: [{username: String, text: String}]
 }, { timestamps: true });
 
 const Repository = mongoose.model('repository', repositorySchema);
