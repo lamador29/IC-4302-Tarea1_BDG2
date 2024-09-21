@@ -37,11 +37,28 @@
 
   <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
   <script>
-    const username = 'nombreDeUsuario'; // Cambia esto con la lógica adecuada para obtener el username
+    document.addEventListener('DOMContentLoaded', function() {
+      const username = localStorage.getItem('username');
 
-    document.getElementById('usernameDisplay').innerText = username;
+      if (username) {
+        document.getElementById('usernameDisplay').innerText = username;
+      } else {
+        window.location.href = 'login.html';
+      }
+    });
+
+    function logout() {
+      localStorage.removeItem('username'); 
+      window.location.href = 'index.html'; 
+    }
 
     async function fetchUserRepositories() {
+      const username = localStorage.getItem('username');
+      if (!username) {
+        window.location.href = 'login.html'; 
+        return;
+      }
+
       try {
         const response = await fetch(`/repos/user-repos/${username}`);
         const repos = await response.json();
