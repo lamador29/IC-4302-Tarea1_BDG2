@@ -9,7 +9,10 @@ const uri = "mongodb+srv://lector:1234@tarea1.acsgw.mongodb.net/RPDB?retryWrites
 mongoose.connect(uri);
 
 
-//Crear repositorio: lo manda a la BD y retorna el repositorio
+/*
+Crear repositorio: lo manda a la BD y retorna el repositorio
+Title: String, isPublic: Booleano (1 y 0), userString: String, tagsString String("tag, tag2, tag 3 separados por comas")
+*/
 async function createRepository(title, isPublic, userString, tagsString) {
     try {
         const users = [userString];
@@ -29,7 +32,9 @@ async function createRepository(title, isPublic, userString, tagsString) {
     }
 }
 
-//Regrese todos los repositorios de un usuario
+/*Regrese todos los repositorios de un usuario
+Parametro: El nombre de usuario actual
+*/
 async function RepositoriesOfAnUser(user) {
     try {
         // Find repositories where the user is in the users array
@@ -43,7 +48,9 @@ async function RepositoriesOfAnUser(user) {
     }
 }
 
-//Para busquedas
+/*Search: Para busquedas
+Parametro: lo que sea que el usuario escriba (un string)
+*/
 async function search(titleStart) {
     try {
         const repositories = await Repository.find({
@@ -59,6 +66,8 @@ async function search(titleStart) {
 }
 
 //Agregar un archivo a un repositorio
+//Parametros:
+//repositoryId:El id del repositorio al que se le agrega el archivo, fileTitle el titulo del archivo, filepath de eso me encargo yo.
 async function addFileToRepositoryFolder(repositoryId, fileTitle, filePath) {
     try {
         const repository = await Repository.findById(repositoryId);
@@ -81,6 +90,7 @@ async function addFileToRepositoryFolder(repositoryId, fileTitle, filePath) {
 }
 
 //Para cuando se hace un commit, mandar el directorio entero al historial de comits
+// Su parametro es el repositorio.
 async function pushFolderToCommits(repositoryId) {
     try {
         const repository = await Repository.findById(repositoryId);
@@ -98,6 +108,7 @@ async function pushFolderToCommits(repositoryId) {
 }
 
 // Funcion para insertar un comentario en un repositorio
+// Ocupa el id del repositorio mostrado en pantalla, el nombre de usuario que hace el comentario, y lo que escribio en la caja texto
 async function makeComment(repositoryId, username, commentText) {
     try {
         const repository = await Repository.findById(repositoryId);
@@ -118,6 +129,7 @@ async function makeComment(repositoryId, username, commentText) {
     }
 }
 
+//Para mostrar todos los comentarios del repositorio.
 async function getCommentsFromRepository(repositoryId) {
     try {
         const repository = await Repository.findById(repositoryId).select('comments');
