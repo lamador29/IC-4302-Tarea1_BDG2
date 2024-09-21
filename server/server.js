@@ -2,9 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const registerRoutes = require('./routes/registerRoutes');
-const registerNeoRoutes = require('./routes/registerNeoRoutes');
 const loginRoutes = require('./routes/loginRoutes');
-const loginNeoRoutes = require('./routes/loginNeoRoutes');
 //const repoRoutes = require('./routes/repoRoutes');
 //const connectDB = require('./db/mongo');
 //const Repository = require('./models/repository');
@@ -18,8 +16,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/register', registerRoutes);
 app.use('/login', loginRoutes);
-app.use('/registerNeo', registerNeoRoutes);
-app.use('/loginNeo', loginNeoRoutes);
 //app.use('/repos', repoRoutes); 
 
 app.get('/', (req, res) => {

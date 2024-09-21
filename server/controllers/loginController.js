@@ -2,8 +2,9 @@ const Aerospike = require('aerospike');
 const bcrypt = require('bcrypt');
 const client = require('../db/aerospike');
 const { hashUsername } = require('../utils/cryptoUtils');
+const neo4jClient = require('../db/neo4j');
 
-exports.loginUser = (req, res) => {
+exports.loginUser = async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -14,27 +15,35 @@ exports.loginUser = (req, res) => {
 
   console.log('Hashed username during login:', hashedUsername);
 
-  const key = new Aerospike.Key('test', 'users', hashedUsername);
-
-  client.get(key, (error, record) => {
-    if (error) {
-      console.error('Error al buscar en Aerospike:', error);
-      return res.status(404).send('Usuario no encontrado');
-    }
+  try {
+    const key = new Aerospike.Key('test', 'users', hashedUsername);
+    const record = await client.get(key);
 
     const hashedPassword = record.bins.password;
+    const passwordMatch = await bcrypt.compare(password, hashedPassword);
 
-    bcrypt.compare(password, hashedPassword, (err, result) => {
-      if (err) {
-        console.error('Error al comparar las contraseñas:', err);
-        return res.status(500).send('Error al validar la contraseña');
-      }
+    if (!passwordMatch) {
+      return res.status(401).send('Contraseña incorrecta');
+    }
 
-      if (result) {
-        res.send('Inicio de sesión exitoso');
-      } else {
-        res.status(401).send('Contraseña incorrecta');
-      }
-    });
-  });
+    console.log('Inicio de sesión exitoso en Aerospike');
+
+    const session = neo4jClient.session();
+    const result = await session.run(
+      'MATCH (u:User {username: $username}) RETURN u',
+      { username }
+    );
+
+    if (result.records.length > 0) {
+      const userNode = result.records[0].get('u');
+      console.log('Usuario encontrado en Neo4j:', userNode);
+      res.send('Inicio de sesión exitoso en Aerospike y Neo4j');
+    } else {
+      console.log('Usuario no encontrado en Neo4j');
+      res.status(404).send('Usuario no encontrado en Neo4j');
+    }
+  } catch (error) {
+    console.error('Error durante el inicio de sesión:', error);
+    res.status(500).send('Error durante el inicio de sesión');
+  }
 };
