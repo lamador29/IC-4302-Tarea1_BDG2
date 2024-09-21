@@ -3,10 +3,13 @@ const path = require('path');
 const app = express();
 const registerRoutes = require('./routes/registerRoutes');
 const loginRoutes = require('./routes/loginRoutes');
-//const repoRoutes = require('./routes/repoRoutes');
-//const connectDB = require('./db/mongo');
-//const Repository = require('./models/repository');
 
+//Funciones para repositorio actuales:
+const {createRepository, search, RepositoriesOfAnUser, addFileToRepositoryFolder, pushFolderToCommits} = require('./controllers/RepositoryController.cjs');
+
+//const repoRoutes = require('./routes/repoRoutes');
+//const connectDB = require('./db/mongo'); Aw hell naw -Wes
+//const Repository = require('./models/repository');
 //connectDB(); 
 
 app.use(express.json()); 

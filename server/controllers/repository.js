@@ -12,7 +12,7 @@ const files = mongoose.model('files', filesSchema);
 
 const repositorySchema = new Schema({
     title: String,
-    isPublic: boolean,
+    isPublic: Boolean,
     rating: Number,
     users: [String],
     tags: [String],
@@ -23,4 +23,3 @@ const repositorySchema = new Schema({
 
 const Repository = mongoose.model('repository', repositorySchema);
 module.exports = Repository;
-module.exports = files;
