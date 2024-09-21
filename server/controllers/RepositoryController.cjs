@@ -72,10 +72,10 @@ async function addFileToRepositoryFolder(repositoryId, fileTitle, filePath) {
         repository.folder.files.push(newFile);
         const updatedRepository = await repository.save();
 
-        console.log('Archivo agregado al folder:', updatedRepository);
+        console.log('File added to repository folder:', updatedRepository);
         return updatedRepository;
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error adding file to repository folder:', error);
         throw error;
     }
 }
@@ -89,7 +89,7 @@ async function pushFolderToCommits(repositoryId) {
         }
         repository.comits.push(repository.folder);
         const updatedRepository = await repository.save();
-        console.log('Operacion hecha con exito con el archivo:', updatedRepository);
+        console.log('Folder pushed to comits:', updatedRepository);
         return updatedRepository;
     } catch (error) {
             console.error('Error:', error);
@@ -97,4 +97,42 @@ async function pushFolderToCommits(repositoryId) {
     }
 }
 
-module.exports = {createRepository, search, RepositoriesOfAnUser, addFileToRepositoryFolder, pushFolderToCommits};
+// Funcion para insertar un comentario en un repositorio
+async function makeComment(repositoryId, username, commentText) {
+    try {
+        const repository = await Repository.findById(repositoryId);
+        if (!repository) {
+            throw new Error('Repository not found');
+        }
+        const newComment = {
+            username: username,
+            text: commentText
+        };
+        repository.comments.push(newComment);
+        const updatedRepository = await repository.save();
+        console.log('Comment added to repository:', updatedRepository);
+        return updatedRepository;
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+
+async function getCommentsFromRepository(repositoryId) {
+    try {
+        const repository = await Repository.findById(repositoryId).select('comments');
+        if (!repository) {
+            throw new Error('Repository not found');
+        }
+        console.log('Commentarios', repository.comments);
+        return repository.comments;
+
+    } catch (error) {
+        console.error('Error retrieving comments:', error);
+        throw error;
+    }
+}
+
+
+module.exports = {createRepository, search, RepositoriesOfAnUser, addFileToRepositoryFolder, 
+                  pushFolderToCommits, makeComment, getCommentsFromRepository};

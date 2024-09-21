@@ -13,10 +13,11 @@ const commentRoutes = require('./routes/commentRoutes');
 >>>>>>> Stashed changes
 
 //Funciones para repositorio actuales:
-const {createRepository, search, RepositoriesOfAnUser, addFileToRepositoryFolder, pushFolderToCommits} = require('./controllers/RepositoryController.cjs');
+const {createRepository, search, RepositoriesOfAnUser, addFileToRepositoryFolder, 
+       pushFolderToCommits, makeComment, getCommentsFromRepository} = require('./controllers/RepositoryController.cjs');
 
 //const repoRoutes = require('./routes/repoRoutes');
-//const connectDB = require('./db/mongo'); Aw hell naw -Wes
+//const connectDB = require('./db/mongo');
 //const Repository = require('./models/repository');
 //connectDB(); 
 
