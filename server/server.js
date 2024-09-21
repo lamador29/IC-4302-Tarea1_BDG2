@@ -1,8 +1,16 @@
 const express = require('express');
+const connectDB = require('./db/mongo');
 const path = require('path');
 const app = express();
 const registerRoutes = require('./routes/registerRoutes');
 const loginRoutes = require('./routes/loginRoutes');
+<<<<<<< Updated upstream
+=======
+const commentRoutes = require('./routes/commentRoutes');
+//const repoRoutes = require('./routes/repoRoutes');
+
+//const Repository = require('./models/repository');
+>>>>>>> Stashed changes
 
 //Funciones para repositorio actuales:
 const {createRepository, search, RepositoriesOfAnUser, addFileToRepositoryFolder, pushFolderToCommits} = require('./controllers/RepositoryController.cjs');
@@ -20,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/register', registerRoutes);
 app.use('/login', loginRoutes);
 //app.use('/repos', repoRoutes); 
+app.use('/api', commentRoutes); 
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'register.html'));
