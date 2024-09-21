@@ -3,6 +3,8 @@ const path = require('path');
 const app = express();
 const registerRoutes = require('./routes/registerRoutes');
 const loginRoutes = require('./routes/loginRoutes');
+const commentRoutes = require('./routes/commentRoutes');
+const recommendationRoutes = require('./routes/recommendationRoutes');
 
 //Funciones para repositorio:
 const {createRepository, search, RepositoriesOfAnUser, addFileToRepositoryFolder, 
@@ -20,6 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/register', registerRoutes);
 app.use('/login', loginRoutes);
+app.use('/recommendationRoutes', recommendationRoutes);
 //app.use('/repos', repoRoutes); 
 app.use('/api', commentRoutes); 
 
