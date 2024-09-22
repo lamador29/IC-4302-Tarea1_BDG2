@@ -1,0 +1,18 @@
+body {
+    background-color:  #bdcafc;
+    font-family: 'Arial', sans-serif;
+    padding: 50px;
+}
+
+.btn-back {
+    background-color: #8122ad;
+    color: white;
+    white-space: nowrap;
+}
+
+.btn-back:hover, 
+.btn-back:active:focus,
+.btn-back:focus {
+    background-color: #9439be;
+    color: white;
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Changes</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="estilosinterfaz/uploadchanges.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <!-- Header with Go Back button and Upload Changes text -->
+        <div class="row align-items-center mb-4">
+            <div class="col-md-1">
+                <button class="btn btn-back" onclick="window.location.href='repositorypage.html'">
+                    Go Back
+                </button>
+            </div>
+            <div class="col-md-11 text-right">
+                <h1>Upload Changes</h1>
+            </div>
+        </div>
+
+        <!-- Files section with Commit button -->
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h3>Files</h3>
+                        <button type="button" class="btn btn-success">Commit</button>
+                    </div>
+                    <div class="card-body">
+                        <p>No files added yet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add and Delete file buttons -->
+        <div class="row mt-3">
+            <div class="col">
+                <button type="button" class="btn btn-primary">Add File</button>
+                <button type="button" class="btn btn-danger">Delete File</button>
+            </div>
+        </div>
+
+        <!-- Description section -->
+        <div class="row mt-4">
+            <div class="col">
+                <h2>Description</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <p>No description provided.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
