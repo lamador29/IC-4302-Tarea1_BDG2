@@ -6,6 +6,8 @@ const loginRoutes = require('./routes/loginRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const recommendationRoutes = require('./routes/recommendationRoutes');
 const createRepositerNeo = require('./routes/createRepositerNeoRoutes');
+const relationshipNeoRoutes = require('./routes/relationshipNeoRoutes');
+
 
 //Funciones para repositorio:------------------------------------------------
 const {createRepository, search, RepositoriesOfAnUser, addFileToRepositoryFolder, 
@@ -22,6 +24,7 @@ app.use('/register', registerRoutes);
 app.use('/login', loginRoutes);
 app.use('/recommendationRoutes', recommendationRoutes);
 app.use('/createRepositerNeo', createRepositerNeo);
+app.use('/relationship', relationshipNeoRoutes);
 //app.use('/repos', repoRoutes); 
 app.use('/api', commentRoutes); 
 

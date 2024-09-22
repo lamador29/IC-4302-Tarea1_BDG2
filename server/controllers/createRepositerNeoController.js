@@ -11,14 +11,6 @@ exports.createRepository = async (req, res) => {
     try {
       session = neo4jClient.session();
 
-      //Register repository
-      const result = await session.run(
-          'CREATE (r:Repository { repositoryName: $repoName}) RETURN r',
-          { repoName }
-      );
-      const node = result.records[0].get('r');
-      console.log('Nodo repositorio creado en Neo4j:', node);
-
       //Register ownership
       const ownedQuery = `
         MATCH (u:User {username: $username})
