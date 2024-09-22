@@ -4,6 +4,7 @@ const app = express();
 const registerRoutes = require('./routes/registerRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const commentRoutes = require('./routes/commentRoutes');
+<<<<<<< Updated upstream
 const recommendationRoutes = require('./routes/recommendationRoutes');
 
 //Funciones para repositorio:
@@ -15,6 +16,12 @@ const {createRepository, search, RepositoriesOfAnUser, addFileToRepositoryFolder
 //const Repository = require('./models/repository');
 //connectDB(); 
 
+=======
+
+//Funciones para repositorio actuales:
+const {createRepository, search, RepositoriesOfAnUser, addFileToRepositoryFolder, pushFolderToCommits} = require('./controllers/RepositoryController.cjs');
+
+>>>>>>> Stashed changes
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true })); 
 
@@ -22,35 +29,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/register', registerRoutes);
 app.use('/login', loginRoutes);
+<<<<<<< Updated upstream
 app.use('/recommendationRoutes', recommendationRoutes);
 //app.use('/repos', repoRoutes); 
+=======
+>>>>>>> Stashed changes
 app.use('/api', commentRoutes); 
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'register.html'));
 });
-
-// Ejemplo de una ruta para interactuar con el modelo de MongoDB (repositorios)
-/* app.post('/create-repository', async (req, res) => {
-  const { Title, IsPublic, commits, Files } = req.body;
-
-  try {
-    // Creando un nuevo repositorio en MongoDB
-    const newRepo = new Repository({
-      Title,
-      IsPublic,
-      commits: commits || [], // Si no se proporcionan commits, ponemos un array vacío
-      Files: Files || [] // Si no se proporcionan archivos, ponemos un array vacío
-    });
-
-    // Guardando el repositorio en MongoDB
-    const savedRepo = await newRepo.save();
-    res.status(201).json({ message: 'Repositorio creado exitosamente', data: savedRepo });
-  } catch (err) {
-    console.error('Error al crear el repositorio:', err);
-    res.status(500).json({ error: 'Error al crear el repositorio' });
-  }
-}); */
 
 const PORT = process.env.PORT || 3003;
 app.listen(PORT, () => {
