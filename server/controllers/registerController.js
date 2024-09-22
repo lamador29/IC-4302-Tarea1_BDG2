@@ -28,6 +28,7 @@ exports.registerUser = async (req, res) => {
     );
     const userNode = result.records[0].get('u');
     console.log('Nodo usuario creado en Neo4j:', userNode);
+    await session.close();
     res.status(201).send('Registro exitoso');
   } catch (error) {
     console.error('Error durante el registro:', error);

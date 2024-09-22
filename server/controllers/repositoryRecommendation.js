@@ -9,8 +9,9 @@ exports.getRecommendations = async (req, res) => {
       return res.status(400).send('Se requiere un nombre de usuario para las recomendaciones');
     }
   
+    let session;
     try {
-      const session = neo4jClient.session();
+      session = neo4jClient.session();
       const result = await session.run(`
         MATCH (target:User {username: $username})-[:LIKE|SUBSCRIBE|OWNED]->(r:Repository)<-[:LIKE|SUBSCRIBE]-(other:User)-[:LIKE|SUBSCRIBE]->(rec:Repository)
         WHERE NOT (target)-[:LIKE|SUBSCRIBE|OWNED]->(rec)
@@ -23,7 +24,8 @@ exports.getRecommendations = async (req, res) => {
       console.log('Datos obtenidos: ', result);
   
       if (result.records.length === 0) {
-        return res.status(404).send('No se encontraron repositorios recomendados para este usuario');
+        console.log('No hay repositorios recomendados');
+        return res.json({ message: 'No se encontró ningún repositorio.' });
       }
   
       const repositories = result.records.map(record => record.get('rec').properties);
@@ -33,6 +35,8 @@ exports.getRecommendations = async (req, res) => {
       console.error('Error al obtener recomendaciones de Neo4j: ', error);
       res.status(500).send('Error al obtener recomendaciones de Neo4j');
     } finally {
-      await session.close();
+      if (session) {
+        await session.close();
+      }
     }
   };

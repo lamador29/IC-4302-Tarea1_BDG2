@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const username = localStorage.getItem('username');
-    const recommendationsBox = document.querySelector('.repositories-box');
+    const recommendationsBox = document.querySelector('#recommendationsBox');
 
     const data = {
       username: localStorage.getItem('username')
@@ -14,14 +14,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   
     try {
       console.log('Enviando datos de usuario:', data); 
-      const response = await fetch('/login', {
+      const response = await fetch('/recommendationRoutes', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
           },
           body: JSON.stringify(data) 
       });
-      console.log('Log <---------------------------------------------------->');
 
       const contentType = response.headers.get('content-type');
       const recommendedRepos = await response.json();
@@ -30,25 +29,24 @@ document.addEventListener('DOMContentLoaded', async () => {
   
         if (response.ok && recommendedRepos.length > 0) {
           recommendationsBox.innerHTML = '';
-          console.log('Repositorios cargados exitosamente', repositories);
+          console.log('Repositorios cargados exitosamente', recommendedRepos);
 
+          
+          recommendedRepos.forEach(record => {
+            const id = (record.id && record.id.toNumber) ? record.id.toNumber() : record.id;
+            const repositoryName = record.repositoryName;
 
-          /*
-          recommendedRepos.forEach(repo => {
-            const repoDiv = document.createElement('div');
-            repoDiv.classList.add('repository-item');
-            repoDiv.innerHTML = `
-              <h4>${repo.title}</h4> <!-- Adjust property names as needed -->
-              <p>Description: ${repo.description || 'No description available'}</p>
-              <p>Stars: ${repo.stars || 0}</p>
-              <p>Forks: ${repo.forks || 0}</p>
-            `;
-            recommendationsBox.appendChild(repoDiv);
-          });*/
+            const repoElement = document.createElement('p');
+            repoElement.textContent = `Repository ID: ${id}, Repository Name: ${repositoryName}`;
+      
+            recommendationsBox.appendChild(repoElement);//no es una lista
+          
+            console.log(`Repository ID: ${id}, Repository Name: ${repositoryName}`);
+          });
           
 
         } else {
-          recommendationsBox.innerHTML = '<p>No hay repositorios recomendados disponibles.</p>';
+          recommendationsBox.innerHTML = '<p>No hay repositorios recomendados.</p>';
         }
       } else {/* Not JSON*/
         console.error('Formato de respuesta inesperado:', response);
