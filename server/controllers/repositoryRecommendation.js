@@ -21,7 +21,7 @@ exports.getRecommendations = async (req, res) => {
         { username }
       );
 
-      console.log('Datos obtenidos: ', result);
+      //console.log('Datos obtenidos: ', result);
   
       if (result.records.length === 0) {
         console.log('No hay repositorios recomendados');
