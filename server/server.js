@@ -5,6 +5,7 @@ const registerRoutes = require('./routes/registerRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const recommendationRoutes = require('./routes/recommendationRoutes');
+const createRepositerNeo = require('./routes/createRepositerNeoRoutes');
 
 //Funciones para repositorio:------------------------------------------------
 const {createRepository, search, RepositoriesOfAnUser, addFileToRepositoryFolder, 
@@ -20,6 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/register', registerRoutes);
 app.use('/login', loginRoutes);
 app.use('/recommendationRoutes', recommendationRoutes);
+app.use('/createRepositerNeo', createRepositerNeo);
 //app.use('/repos', repoRoutes); 
 app.use('/api', commentRoutes); 
 
