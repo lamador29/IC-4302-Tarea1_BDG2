@@ -36,12 +36,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             const id = (record.id && record.id.toNumber) ? record.id.toNumber() : record.id;
             const repositoryName = record.repositoryName;
 
-            const repoElement = document.createElement('p');
-            repoElement.textContent = `${repositoryName}`;
-      
-            recommendationsBox.appendChild(repoElement);
-          
-            console.log(`Repository ID: ${id}, Repository Name: ${repositoryName}`);
+            const repoDiv = document.createElement('div');
+            repoDiv.classList.add('repository-item');
+            repoDiv.innerHTML = `
+              <h4>
+                <a href="repositorypage.html?repo=${repositoryName}">
+                  ${repositoryName}
+                </a>
+              </h4>
+            `;
+            recommendationsBox.appendChild(repoDiv);
           });
           
 
