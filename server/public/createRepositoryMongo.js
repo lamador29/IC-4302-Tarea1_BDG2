@@ -1,10 +1,5 @@
 const form = document.querySelector('form');
 const messageDiv = document.createElement('div');
-const repoNameInput = document.getElementById("repo-name");
-
-messageDiv.style.textAlign = 'center';
-messageDiv.style.marginTop = '20px';
-document.body.appendChild(messageDiv);
 
 form.addEventListener('submit', async function(event) {
   event.preventDefault();
@@ -14,24 +9,25 @@ form.addEventListener('submit', async function(event) {
   const formData = new FormData(form);
   const data = {
     repoName: formData.get('repo-name'),
-    username: username
+    isPublic: formData.get('isPublic') === 'on',
+    username: username,
+    tagsString: formData.get('repo-tags') // Ensure this is sent
   };
   
   try {
-    const response = await fetch('/createRepositerNeo', {
+    const response = await fetch('/repositoryFunction/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
     });
-  
+
     const result = await response.text();
-  
+
     if (response.ok) {
       messageDiv.innerHTML = result;
       messageDiv.style.color = 'green';
-      // Removed form.reset();
     } else {
       messageDiv.innerHTML = `Error: ${result}`;
       messageDiv.style.color = 'red';

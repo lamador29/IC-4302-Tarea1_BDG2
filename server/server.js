@@ -7,14 +7,8 @@ const commentRoutes = require('./routes/commentRoutes');
 const recommendationRoutes = require('./routes/recommendationRoutes');
 const createRepositerNeo = require('./routes/createRepositerNeoRoutes');
 const relationshipNeoRoutes = require('./routes/relationshipNeoRoutes');
+const repositoryFunctionsRoutes = require('./routes/repositoryRoutes');
 
-
-//Funciones para repositorio:------------------------------------------------
-const {createRepository, search, RepositoriesOfAnUser, addFileToRepositoryFolder, 
-       downloadFiles, makeCommit, makeComment, getCommentsFromRepository, fork} = require('./controllers/RepositoryController.cjs');
-//¿Comó usar estas cosas? Como simples funciones.
-//createRepository(param1, param2...); Estan documentados dentro de RepositoryController.cjs en controllers.
-//----------------------------------------------------------------------------
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true })); 
 
@@ -27,6 +21,11 @@ app.use('/createRepositerNeo', createRepositerNeo);
 app.use('/relationship', relationshipNeoRoutes);
 //app.use('/repos', repoRoutes); 
 app.use('/api', commentRoutes); 
+
+//THIS:
+app.use('/repositoryFunction', repositoryFunctionsRoutes);
+//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH.....
+
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'register.html'));

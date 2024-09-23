@@ -17,7 +17,7 @@
   <h2 class="text-center h1">Create Repository</h2>
 
   <div class="form-section">
-    <form>
+    <form id="repo-form">
       <div class="form-group">
         <input type="text" class="form-control" id="repo-name" name="repo-name" placeholder="Name of the repository">
       </div>
@@ -25,7 +25,7 @@
         <input type="text" class="form-control" id="repo-tags" name="repo-tags" placeholder="Tags">
       </div>
       <div class="form-switch mb-3">
-        <input class="form-check-input" type="checkbox" id="publicSwitch" checked>
+        <input class="form-check-input" type="checkbox" id="publicSwitch" name="publicSwitch" checked>
         <label class="form-check-label mx-2" for="publicSwitch">Public</label>
       </div>
       <div class="form-group-btn text-center mt-4">
@@ -33,9 +33,8 @@
       </div>
     </form>
   </div>
-
   <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-
+  <script src="createRepositoryMongo.js"></script>
   <script src="createRepositerNeo.js"></script>
 </body>
 </html>
