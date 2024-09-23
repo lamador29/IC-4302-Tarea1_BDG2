@@ -61,3 +61,64 @@ try {
   console.error('Error en el envío del comentario:', error);
 }
 });
+
+
+
+
+
+
+
+document.getElementById('likeButton').addEventListener('click', async () => {
+  await handleRating('like');
+});
+
+document.getElementById('dislikeButton').addEventListener('click', async () => {
+  await handleRating('dislike');
+});
+
+async function handleRating(type) {
+  try {
+    console.log('Intentando añadir relacion: ', type)
+
+    if (type == 'like'){
+      const response = await fetch('/relationship/like', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          repoName: 'Repositorio de xd', //------------------------------------------
+          username: username,
+        })
+      });
+
+
+    } else if (type == 'dislike') {
+      const response = await fetch('/relationship/dislike', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          repoName: 'Repositorio de xd', //------------------------------------------
+          username: username,
+        })
+      });
+
+
+    } else {
+      throw new Error('Type no tiene un tipo apropiado de relacion: ', type);
+    }
+
+    const result = await response.json();
+
+    if (response.ok) {
+      console.log(`${type} registered successfully`);
+      // Update buttons (???)
+    } else {
+      console.error('Error:', result.error);
+    }
+  } catch (error) {
+    console.error(`Error during ${type} process:`, error);
+  }
+}
