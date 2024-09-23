@@ -8,7 +8,6 @@
 
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="estilosinterfaz/searchresults.css" rel="stylesheet">
-
 </head>
 <body>
 
@@ -16,16 +15,53 @@
   <div class="container">
     <h2 class="fw-bold">Search Repositories</h2>
     <div class="search-bar mb-4">
-      <input type="text" class="form-control" placeholder="Search for a repository">
-      <button class="btn btn-search">Search</button>
+      <input type="text" id="searchInput" class="form-control" placeholder="Search for a repository">
+      <button class="btn btn-search" id="searchButton">Search</button>
     </div>
 
     <h3 class="fw-bold">Results</h3>
-    <div class="results-box">
+    <div id="resultsBox" class="results-box">
       <p>No repositories found.</p>
     </div>
   </div>
 
   <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('searchButton').addEventListener('click', async () => {
+      const query = document.getElementById('searchInput').value;
+
+      if (!query) {
+        alert('Please enter a search term.');
+        return;
+      }
+
+      try {
+        const response = await fetch(`/repositoryFunction/search?query=${encodeURIComponent(query)}`);
+        const results = await response.json();
+        console.log(results);
+        const resultsBox = document.getElementById('resultsBox');
+        resultsBox.innerHTML = ''; // Clear previous results
+
+        if (response.ok && results.length > 0) {
+          results.forEach(repo => {
+            const repoDiv = document.createElement('div');
+            repoDiv.classList.add('repository-item');
+            repoDiv.innerHTML = `
+              <h4>${repo.title}</h4>
+              <p>Public: ${repo.isPublic ? 'Yes' : 'No'}</p>
+              <p>Commits: ${repo.comits.length}</p>
+              <p>Tags: ${repo.tags.join(', ')}</p>
+            `;
+            resultsBox.appendChild(repoDiv);
+          });
+        } else {
+          resultsBox.innerHTML = '<p>No repositories found.</p>';
+        }
+      } catch (error) {
+        console.error('Error loading results:', error);
+        document.getElementById('resultsBox').innerHTML = '<p>Error loading results.</p>';
+      }
+    });
+  </script>
 </body>
 </html>

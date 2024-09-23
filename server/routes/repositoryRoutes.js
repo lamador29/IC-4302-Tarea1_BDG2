@@ -39,12 +39,18 @@ router.get('/user-repos/:username', async (req, res) => {
 
 // Route for searching repositories by title
 router.get('/search', async (req, res) => {
-  const { title } = req.query;
-  
+  const { query } = req; // Use `query` to match your frontend code
+
+  // Check if the search term is provided
+  if (!query || !query.query) {
+    return res.status(400).send('Search term is required.'); // Bad Request
+  }
   try {
-    const repos = await search(title);
+    const repos = await search(query.query); // Use the correct property for the search term
+    console.log(repos);
     res.status(200).json(repos);
   } catch (error) {
+    console.error('Error during search:', error); // Log the error for debugging
     res.status(500).send('Error during search: ' + error.message);
   }
 });
