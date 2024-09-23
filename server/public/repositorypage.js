@@ -98,6 +98,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('dislikeButton').addEventListener('click', async () => {
     await handleRating('dislike');
   });
+
+  document.getElementById('subscribeButton').addEventListener('click', async () => {
+    await subscribe();
+  });
 });
 
 
@@ -145,5 +149,33 @@ async function handleRating(type) {
     }
   } catch (error) {
     console.error(`Error during ${type} process:`, error);
+  }
+}
+
+async function subscribe() {
+  try {
+    console.log('Intentando añadir relacion de suscripcion')
+
+
+    const response = await fetch('/relationship/subscribe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        repositoryName: 'Repositorio de xd', //------------------------------------------
+        username: username,
+      })
+    });
+
+
+    if (response.ok) {
+      const result = await response.json();
+      console.log('Subscribe registered successfully');
+    } else {
+      console.error('Error:', result.error);
+    }
+  } catch (error) {
+    console.error(`Error during subscribe process:`, error);
   }
 }
