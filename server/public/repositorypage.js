@@ -41,11 +41,6 @@ async function fetchComments() {
 
 fetchComments();
 
-function getRepositoryIdFromURL() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get('id'); 
-}
-
 document.getElementById('commentForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const content = document.getElementById('commentContent').value.trim(); // Get the comment content
