@@ -37,9 +37,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             const repositoryName = record.repositoryName;
 
             const repoElement = document.createElement('p');
-            repoElement.textContent = `Repository ID: ${id}, Repository Name: ${repositoryName}`;
+            repoElement.textContent = `${repositoryName}`;
       
-            recommendationsBox.appendChild(repoElement);//no es una lista
+            recommendationsBox.appendChild(repoElement);
           
             console.log(`Repository ID: ${id}, Repository Name: ${repositoryName}`);
           });
