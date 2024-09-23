@@ -76,7 +76,11 @@
         const repoDiv = document.createElement('div');
         repoDiv.classList.add('repository-item');
         repoDiv.innerHTML = `
-          <h4>${repo.title}</h4>
+          <h4>
+            <a href="repositorypage.html?repo=${repo.title}">
+              ${repo.title}
+            </a>
+          </h4>
           <p>Public: ${repo.isPublic ? 'Yes' : 'No'}</p>
           <p>Commits: ${repo.comits.length}</p> <!-- Fixed typo here -->
           <p>Tags: ${repo.tags.join(', ')}</p>
@@ -91,6 +95,7 @@
     document.getElementById('repositoriesBox').innerHTML = '<p>Error loading repositories.</p>';
   }
 }
+
 
   </script>
 </body>
