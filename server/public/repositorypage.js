@@ -11,12 +11,14 @@ function getRepositoryIdFromURL() {
 }
 
 async function fetchComments() {
+  const repositoryId = getRepositoryIdFromURL();
+
   try {
     const response = await fetch(`/api/comments/${repositoryId}`);
     const comments = await response.json();
 
     const commentSection = document.querySelector('.comment-box');
-    commentSection.innerHTML = ''; 
+    commentSection.innerHTML = '';
 
     if (comments.length > 0) {
       comments.forEach(comment => {
@@ -32,41 +34,48 @@ async function fetchComments() {
       commentSection.innerHTML = '<p>No comments yet. Be the first to comment!</p>';
     }
   } catch (error) {
-    console.error('Error al obtener los comentarios:', error);
+    console.error('Error fetching comments:', error);
   }
-  }
+}
 
 fetchComments();
 
-document.getElementById('commentForm').addEventListener('submit', async (e) => {
-e.preventDefault();
-const content = document.getElementById('commentContent').value;
-
-try {
-  const response = await fetch('/api/comments', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ repositoryId, username, content }) 
-  });
-
-  const result = await response.json();
-
-  if (response.ok) {
-    document.getElementById('commentContent').value = '';
-    fetchComments();
-  } else {
-    console.error('Error al agregar el comentario:', result.error);
-  }
-} catch (error) {
-  console.error('Error en el envío del comentario:', error);
+function getRepositoryIdFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('id'); 
 }
+
+document.getElementById('commentForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const content = document.getElementById('commentContent').value.trim(); // Get the comment content
+  const repositoryId = getRepositoryIdFromURL(); // Get the repository ID from the URL
+  const username = localStorage.getItem('username'); // Get the logged-in username
+
+  if (!content) {
+    alert('Comment cannot be empty');
+    return;
+  }
+
+  try {
+    // Send the POST request to the API to add a new comment
+    const response = await fetch('/api/comments', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ repositoryId, username, content }) 
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      document.getElementById('commentContent').value = ''; // Clear the textarea
+      fetchComments(); // Refresh comments section
+    } else {
+      console.error('Error adding comment:', result.error);
+    }
+  } catch (error) {
+    console.error('Error submitting comment:', error);
+  }
 });
-
-
-
-
-
-
 
 document.getElementById('likeButton').addEventListener('click', async () => {
   await handleRating('like');

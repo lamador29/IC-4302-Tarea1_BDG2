@@ -7,22 +7,27 @@ exports.addComment = async (req, res) => {
     const comment = new Comment({
       repositoryId,
       username,
-      content
+      content,
+      createdAt: new Date() // Ensure createdAt field is populated
     });
-    await comment.save();
-    res.status(201).json({ message: 'Comentario agregado exitosamente', comment });
+    await comment.save(); // Save comment to MongoDB
+    res.status(201).json({ message: 'Comment added successfully', comment });
   } catch (err) {
-    res.status(500).json({ error: 'Error al agregar el comentario' });
+    console.error('Error adding comment:', err);
+    res.status(500).json({ error: 'Error adding comment' });
   }
 };
+
 
 exports.getComments = async (req, res) => {
-  const { repositoryId } = req.params;
+  const { repositoryId } = req.params; // Get repository ID from the route parameter
 
   try {
-    const comments = await Comment.find({ repositoryId });
+    const comments = await Comment.find({ repositoryId }).sort({ createdAt: -1 }); // Retrieve comments, sorted by date
     res.status(200).json(comments);
   } catch (err) {
-    res.status(500).json({ error: 'Error al obtener los comentarios' });
+    console.error('Error retrieving comments:', err);
+    res.status(500).json({ error: 'Error retrieving comments' });
   }
 };
+
