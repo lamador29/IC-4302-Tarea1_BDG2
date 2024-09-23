@@ -113,7 +113,7 @@ async function handleRating(type) {
     console.log('Intentando añadir relacion: ', type)
 
     if (type == 'like'){
-      const response = await fetch('/relationship/like', {
+      await fetch('/relationship/like', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -126,7 +126,7 @@ async function handleRating(type) {
 
 
     } else if (type == 'dislike') {
-      const response = await fetch('/relationship/dislike', {
+      await fetch('/relationship/dislike', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -141,15 +141,9 @@ async function handleRating(type) {
     } else {
       throw new Error('Type no tiene un tipo apropiado de relacion: ', type);
     }
+    console.log(`${type} registered successfully`);
 
     
-
-    if (response.ok) {
-      const result = await response.json();
-      console.log(`${type} registered successfully`);
-    } else {
-      console.error('Error:', result.error);
-    }
   } catch (error) {
     console.error(`Error during ${type} process:`, error);
   }
@@ -163,7 +157,7 @@ async function subscribe() {
     console.log('Intentando añadir relacion de suscripcion')
 
 
-    const response = await fetch('/relationship/subscribe', {
+    await fetch('/relationship/subscribe', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -173,14 +167,9 @@ async function subscribe() {
         username: username,
       })
     });
+    console.log('Subscribe registered successfully');
 
 
-    if (response.ok) {
-      const result = await response.json();
-      console.log('Subscribe registered successfully');
-    } else {
-      console.error('Error:', result.error);
-    }
   } catch (error) {
     console.error(`Error during subscribe process:`, error);
   }
