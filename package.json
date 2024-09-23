@@ -3,6 +3,7 @@
     "aerospike": "^5.12.1",
     "archiver": "^7.0.1",
     "bcrypt": "^5.1.1",
+    "cassandra-driver": "^4.7.2",
     "express": "^4.21.0",
     "mongoose": "^8.6.3",
     "neo4j-driver": "^5.24.1",
