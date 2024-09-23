@@ -8,10 +8,10 @@ const recommendationRoutes = require('./routes/recommendationRoutes');
 const createRepositerNeo = require('./routes/createRepositerNeoRoutes');
 const relationshipNeoRoutes = require('./routes/relationshipNeoRoutes');
 const repositoryFunctionsRoutes = require('./routes/repositoryRoutes');
+const repoRoutes = require('./routes/repoRoutes');
 
 app.use(express.json()); 
-app.use(express.urlencoded({ extended: true })); 
-
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/register', registerRoutes);
@@ -19,7 +19,7 @@ app.use('/login', loginRoutes);
 app.use('/recommendationRoutes', recommendationRoutes);
 app.use('/createRepositerNeo', createRepositerNeo);
 app.use('/relationship', relationshipNeoRoutes);
-//app.use('/repos', repoRoutes); 
+app.use('/repos', repoRoutes); 
 app.use('/api', commentRoutes); 
 
 //THIS:

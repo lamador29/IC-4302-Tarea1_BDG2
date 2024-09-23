@@ -18,7 +18,7 @@ router.post('/create', async (req, res) => {
   
   try {
     console.log(repoName, ' ', username); // Logging repoName instead of title
-    const newRepository = await createRepository(repoName, isPublic, username, req.body.tagsString); // Ensure tagsString is sent
+    const newRepository = await createRepository(repoName, 1, username, req.body.tagsString); // Ensure tagsString is sent
     res.status(200).send(`Repository "${newRepository.title}" created successfully!`);
   } catch (error) {
     res.status(500).send('Error creating repository: ' + error.message);
