@@ -13,7 +13,7 @@ exports.getRecommendations = async (req, res) => {
     try {
       session = neo4jClient.session();
       const result = await session.run(`
-        MATCH (target:User {username: $username})-[:LIKE|SUBSCRIBE|OWNED]->(r:Repository)<-[:LIKE|SUBSCRIBE]-(other:User)-[:LIKE|SUBSCRIBE]->(rec:Repository)
+        MATCH (target:User {username: $username})-[:LIKE|SUBSCRIBE|OWNED]->(r:Repository)<-[:LIKE|SUBSCRIBE|OWNED]-(other:User)-[:LIKE|SUBSCRIBE|OWNED]->(rec:Repository)
         WHERE NOT (target)-[:LIKE|SUBSCRIBE|OWNED]->(rec)
         RETURN rec, COUNT(*) AS score
         ORDER BY score DESC
