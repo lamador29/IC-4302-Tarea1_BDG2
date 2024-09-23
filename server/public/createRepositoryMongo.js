@@ -28,6 +28,9 @@ form.addEventListener('submit', async function(event) {
     if (response.ok) {
       messageDiv.innerHTML = result;
       messageDiv.style.color = 'green';
+      setTimeout(() => {
+        window.location.href = 'usermainpage.html';
+      }, 1000);
     } else {
       messageDiv.innerHTML = `Error: ${result}`;
       messageDiv.style.color = 'red';
