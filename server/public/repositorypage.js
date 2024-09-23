@@ -7,8 +7,9 @@ if (!username) {
 
 function getRepositoryIdFromURL() {
   const params = new URLSearchParams(window.location.search);
-  return params.get('id'); 
+  return params.get('repo');  // Cambia 'id' por 'repo' si pasas el nombre del repositorio
 }
+
 
 async function fetchComments() {
   const repositoryId = getRepositoryIdFromURL();
