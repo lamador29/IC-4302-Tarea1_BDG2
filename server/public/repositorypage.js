@@ -80,7 +80,7 @@ document.getElementById('commentForm').addEventListener('submit', async (e) => {
 
 document.addEventListener('DOMContentLoaded', function() {
   const params = new URLSearchParams(window.location.search);
-  const repositoryName = params.get('repo');  
+  const repositoryName = params.get('repo');
 
   if (repositoryName) {
     document.querySelector('h2.fw-bold').textContent = repositoryName;
@@ -106,6 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 async function handleRating(type) {
+  const params = new URLSearchParams(window.location.search);
+  const repoNameElement = params.get('repo');
+
   try {
     console.log('Intentando añadir relacion: ', type)
 
@@ -116,7 +119,7 @@ async function handleRating(type) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          repositoryName: 'Repositorio de xd', //------------------------------------------
+          repositoryName: repoNameElement,
           username: username,
         })
       });
@@ -129,7 +132,7 @@ async function handleRating(type) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          repositoryName: 'Repositorio de xd', //------------------------------------------
+          repositoryName: repoNameElement,
           username: username,
         })
       });
@@ -153,6 +156,9 @@ async function handleRating(type) {
 }
 
 async function subscribe() {
+  const params = new URLSearchParams(window.location.search);
+  const repoNameElement = params.get('repo');
+
   try {
     console.log('Intentando añadir relacion de suscripcion')
 
@@ -163,7 +169,7 @@ async function subscribe() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        repositoryName: 'Repositorio de xd', //------------------------------------------
+        repositoryName: repoNameElement,
         username: username,
       })
     });
