@@ -7,7 +7,7 @@ if (!username) {
 
 function getRepositoryIdFromURL() {
   const params = new URLSearchParams(window.location.search);
-  return params.get('repo');  // Cambia 'id' por 'repo' si pasas el nombre del repositorio
+  return params.get('repo'); 
 }
 
 
@@ -78,14 +78,16 @@ document.getElementById('commentForm').addEventListener('submit', async (e) => {
   }
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+  const params = new URLSearchParams(window.location.search);
+  const repositoryName = params.get('repo');  
 
-
-
-
-
-
-
-
+  if (repositoryName) {
+    document.querySelector('h2.fw-bold').textContent = repositoryName;
+  } else {
+    console.error('No se encontró el parámetro del repositorio en la URL.');
+  }
+});
 
 
 document.addEventListener('DOMContentLoaded', () => {
