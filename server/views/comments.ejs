@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comments for Repository <%= repositoryId %></title>
+</head>
+<body>
+  <h2>Comments for Repository: <%= repositoryId %></h2>
+
+  <ul>
+    <% comments.forEach(comment => { %>
+      <li>
+        <strong><%= comment.username %>:</strong> <%= comment.content %>
+        <br>
+        <small><%= new Date(comment.createdAt).toLocaleString() %></small>
+      </li>
+    <% }) %>
+  </ul>
+
+  <h3>Add a Comment</h3>
+  <form action="/comments" method="POST">
+    <input type="hidden" name="repositoryId" value="<%= repositoryId %>">
+    <input type="text" name="username" placeholder="Your Name" required>
+    <textarea name="content" placeholder="Write your comment here" required></textarea>
+    <button type="submit">Submit</button>
+  </form>
+
+</body>
+</html>
