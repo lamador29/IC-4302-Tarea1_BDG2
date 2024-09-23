@@ -77,13 +77,26 @@ document.getElementById('commentForm').addEventListener('submit', async (e) => {
   }
 });
 
-document.getElementById('likeButton').addEventListener('click', async () => {
-  await handleRating('like');
+
+
+
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('likeButton').addEventListener('click', async () => {
+    await handleRating('like');
+  });
+
+  document.getElementById('dislikeButton').addEventListener('click', async () => {
+    await handleRating('dislike');
+  });
 });
 
-document.getElementById('dislikeButton').addEventListener('click', async () => {
-  await handleRating('dislike');
-});
 
 async function handleRating(type) {
   try {
@@ -96,7 +109,7 @@ async function handleRating(type) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          repoName: 'Repositorio de xd', //------------------------------------------
+          repositoryName: 'Repositorio de xd', //------------------------------------------
           username: username,
         })
       });
@@ -109,7 +122,7 @@ async function handleRating(type) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          repoName: 'Repositorio de xd', //------------------------------------------
+          repositoryName: 'Repositorio de xd', //------------------------------------------
           username: username,
         })
       });
@@ -119,11 +132,11 @@ async function handleRating(type) {
       throw new Error('Type no tiene un tipo apropiado de relacion: ', type);
     }
 
-    const result = await response.json();
+    
 
     if (response.ok) {
+      const result = await response.json();
       console.log(`${type} registered successfully`);
-      // Update buttons (???)
     } else {
       console.error('Error:', result.error);
     }
